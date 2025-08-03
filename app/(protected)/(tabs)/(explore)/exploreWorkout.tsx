@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, TextInput, Pressable, StyleSheet, View as RNView } from 'react-native';
 import { Text, View } from '@/components/Themed';
 import { useRouter } from 'expo-router';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/utils/supabase';
 
 type WorkoutSet = {
   id: string;

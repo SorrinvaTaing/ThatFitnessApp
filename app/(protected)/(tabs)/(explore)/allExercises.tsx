@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
-import { supabase } from '../../../../lib/supabase';
+import { supabase } from '../../../../utils/supabase';
 
 export default function AllExercisesScreen() {
   const [exercises, setExercises] = useState<any[]>([]);

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Pressable, StyleSheet, Alert } from 'react-native';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/utils/supabase';
 
 export default function IncomingRequestsScreen() {
   const [requests, setRequests] = useState<any[]>([]);

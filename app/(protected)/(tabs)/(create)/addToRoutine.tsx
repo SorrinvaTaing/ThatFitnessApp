@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Pressable, FlatList, StyleSheet, Alert } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/utils/supabase';
 
 export default function AddToRoutineScreen() {
   const { day } = useLocalSearchParams<{ day: string }>();

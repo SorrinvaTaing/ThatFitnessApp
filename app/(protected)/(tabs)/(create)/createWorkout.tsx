@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, FlatList, StyleSheet, Pressable, Alert, Button, TextInputChangeEventData, NativeSyntheticEvent } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/utils/supabase';
 import { Dropdown } from 'react-native-element-dropdown';
 
 const visibilities = {

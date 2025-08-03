@@ -4,8 +4,8 @@ import {
   Pressable, Alert, Button
 } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { supabase } from '@/lib/supabase';
+import Storage from '@/lib/storage';
+import { supabase } from '@/utils/supabase';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { BackHandler } from 'react-native';
 
@@ -47,7 +47,7 @@ export default function NewWorkoutScreen() {
   useFocusEffect(
     React.useCallback(() => {
       const unsubscribe = navigation.addListener('beforeRemove', async () => {
-        await AsyncStorage.removeItem(STORAGE_KEY);
+        await Storage.removeItem(STORAGE_KEY);
       });
 
       return () => unsubscribe();
@@ -57,7 +57,7 @@ export default function NewWorkoutScreen() {
   // Load draft on mount
   useEffect(() => {
     (async () => {
-      const saved = await AsyncStorage.getItem(STORAGE_KEY);
+      const saved = await Storage.getItem(STORAGE_KEY);
       if (saved) {
         const parsed: WorkoutEntry = JSON.parse(saved);
         setWorkoutName(parsed.workoutName);
@@ -113,7 +113,7 @@ export default function NewWorkoutScreen() {
         startTime: startTime?.toISOString() ?? new Date().toISOString(),
         exercises,
       };
-      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(draft));
+      await Storage.setItem(STORAGE_KEY, JSON.stringify(draft));
     };
     save();
   }, [workoutName, visibility, startTime, exercises]);
@@ -213,7 +213,7 @@ export default function NewWorkoutScreen() {
       const { error: setsError } = await supabase.from('workout_sets').insert(setsInsert);
       if (setsError) throw setsError;
 
-      await AsyncStorage.removeItem(STORAGE_KEY);
+      await Storage.removeItem(STORAGE_KEY);
       Alert.alert('Workout Saved!');
       router.replace('./');
     } catch (err: any) {

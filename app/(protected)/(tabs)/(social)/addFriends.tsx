@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { View, Text, TextInput, FlatList, Pressable, StyleSheet, Alert } from 'react-native';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/utils/supabase';
 
 export default function AddFriendsScreen() {
   const [searchQuery, setSearchQuery] = useState('');

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, ScrollView } from 'react-native';
-import { supabase } from '../lib/supabase';
+import { supabase } from '../utils/supabase';
 import { useRouter } from 'expo-router';
 import { AuthContext } from '@/utils/authContext';
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, StyleSheet } from 'react-native';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/utils/supabase';
 
 export default function CurrentFriends() {
   const [friends, setFriends] = useState<any[]>([]);
@@ -56,7 +56,7 @@ export default function CurrentFriends() {
 
           return (
             <View style={styles.friendCard}>
-              <Text style={styles.friendName}>{friendName || 'Unknown User'}</Text>
+              <Text style={styles.friendName}>{friendName}</Text>
             </View>
           );
         }}

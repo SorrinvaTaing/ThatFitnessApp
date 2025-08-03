@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Pressable, TextInput, Alert, ScrollView } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/utils/supabase';
 import { router } from 'expo-router';
 
 const muscleGroups = {

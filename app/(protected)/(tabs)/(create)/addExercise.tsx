@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Pressable, StyleSheet, Alert } from 'react-native';
 import { router, useLocalSearchParams } from 'expo-router';
-import { supabase } from '@/lib/supabase';
+import { supabase } from '@/utils/supabase';
 
 export default function AddExerciseScreen() {
   const [exercisesList, setExercisesList] = useState<any[]>([]);
@@ -20,7 +20,7 @@ export default function AddExerciseScreen() {
     const newExercise = {
       exercise_id: exercise.id,
       exercise_name: exercise.name,
-      position: 0, // updated later in newWorkout
+      position: 0, 
       notes: '',
       sets: [{ set_number: 1, weight: '', reps: '', notes: '' }],
     };
