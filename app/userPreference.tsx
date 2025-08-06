@@ -1,13 +1,12 @@
 import React, { useContext, useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, ScrollView } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, ScrollView, Pressable } from 'react-native';
 import { supabase } from '../utils/supabase';
 import { useRouter } from 'expo-router';
 import { AuthContext } from '@/utils/authContext';
 
 export default function WelcomeScreen() {
-  const [fullName, setFullName] = useState('');
   const [goals, setGoals] = useState<string[]>([]);
-  const [goalType, setGoalType] = useState<'lose' | 'gain' | null>(null);
+  const [goalType, setGoalType] = useState<'lose' | 'gain' | 'maintain' | null>(null);
   const [loading, setLoading] = useState(false);
   const { logIn } = useContext(AuthContext);
   
@@ -22,7 +21,7 @@ export default function WelcomeScreen() {
   };
 
   const submitProfile = async () => {
-    if (!fullName || goals.length === 0 || !goalType) {
+    if (goals.length === 0 || !goalType) {
       Alert.alert('Please complete all fields.');
       return;
     }
@@ -41,7 +40,6 @@ export default function WelcomeScreen() {
     const { error } = await supabase
       .from('profiles')
       .update({
-        full_name: fullName,
         fitness_goals: goals,
         weight_goal: goalType,
       })
@@ -60,14 +58,6 @@ export default function WelcomeScreen() {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Welcome!</Text>
       <Text style={styles.subtitle}>Tell us a bit about your fitness goals.</Text>
-
-      <Text style={styles.label}>Full Name</Text>
-      <TextInput
-        style={styles.input}
-        value={fullName}
-        onChangeText={setFullName}
-        placeholder="Your full name"
-      />
 
       <Text style={styles.label}>What are you interested in?</Text>
       <View style={styles.options}>
@@ -93,11 +83,20 @@ export default function WelcomeScreen() {
           onPress={() => setGoalType('gain')}
           color={goalType === 'gain' ? '#007AFF' : '#ccc'}
         />
+        <Button
+          title="Maintain"
+          onPress={() => setGoalType('maintain')}
+          color={goalType === 'maintain' ? '#007AFF' : '#ccc'}
+        />
       </View>
 
-      <View style={{ marginTop: 20 }}>
-        <Button title={loading ? 'Saving...' : 'Continue'} onPress={submitProfile} disabled={loading} />
-      </View>
+      <Pressable
+        style={styles.button}
+        onPress={submitProfile}
+        disabled={loading}
+      >
+        <Text style={styles.buttonText}>Continue</Text>
+      </Pressable>
     </ScrollView>
   );
 }
@@ -137,4 +136,12 @@ const styles = StyleSheet.create({
     gap: 10,
     marginVertical: 10,
   },
+  button: {
+    backgroundColor: '#007bff',
+    padding: 15,
+    borderRadius: 8,
+    marginVertical: 10,
+    alignItems: 'center',
+  },
+  buttonText: { color: '#fff', fontWeight: '600' },
 });
